@@ -43,7 +43,7 @@
 export default {
   computed: {
     curRoute() {
-      return this.$route.path.startsWith("/user");
+      return this.$route.path.startsWith("/user") || this.$route.name == "Register"  ;
     },
     goToUser() {
       if (this.curRoute) {

@@ -49,7 +49,7 @@ const store = createStore({
       });
     },
     async signup(context, payload) {
-      const fetchData = await fetch(
+      const request = await fetch(
         "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyCPUZj35jh8arG_wW1OGLuSfzDz1E2dPVE",
         {
           method: "POST",
@@ -61,8 +61,8 @@ const store = createStore({
         }
       );
 
-      const responseData = await fetchData.json();
-      if (!fetchData.ok) {
+      const responseData = await request.json();
+      if (!request.ok) {
         console.log(responseData);
         const error = new Error(responseData || "gkol");
         throw error;
