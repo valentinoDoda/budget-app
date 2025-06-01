@@ -56,7 +56,11 @@ export default {
       } catch (err) {
         this.error = err.message || "Failed to auth";
       }
-      console.log(this.error);
+      if(!this.error){
+        await this.$store.dispatch("fetchUserData")
+        this.$router.replace({name:"User"})
+      }
+      this.error = null;
     },
   },
 };

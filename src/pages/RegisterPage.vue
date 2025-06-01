@@ -5,32 +5,35 @@
       <form @submit.prevent="submitRegister">
         <label for="name">Name</label>
         <input
+         
           type="text"
           id="name"
           v-model.trim="name"
           name="name"
-          placeholder="John"
+          :placeholder="setUserData.name"
           required
         />
 
         <label for="lastname">Last Name</label>
         <input
+          
           type="text"
           id="lastname"
           v-model.trim="lastName"
           name="lastname"
-          placeholder="Doe"
+          :placeholder="setUserData.lastName"
           required
         />
 
         <label for="age">Age</label>
         <input
+        
           type="number"
           id="age"
           v-model.trim="age"
           name="age"
           min="0"
-          placeholder="30"
+          :placeholder="setUserData.age"
           required
         />
 
@@ -40,7 +43,7 @@
           id="job"
           v-model.trim="job"
           name="job"
-          placeholder="Developer"
+          :placeholder="setUserData.job"
           required
         />
 
@@ -59,6 +62,11 @@ export default {
       job: "",
     };
   },
+  computed: {
+    setUserData() {
+      return this.$store.getters.getUserData;
+    },
+  },
   methods: {
     submitRegister() {
       const token = this.$store.getters.getToken;
@@ -73,15 +81,15 @@ export default {
               lastName: this.lastName,
               age: this.age,
               job: this.job,
-              budget: 0,
-              incomes: 0,
-              expenses: 0,
+              budget: this.$store.getters.getUserBudget || 0,
+              incomes: this.$store.getters.getUserIncomes || 0,
+              expenses: this.$store.getters.getUserExpenses || 0,
             }),
           }
         );
-        this.$router.replace({name: "User"})
-      }else{
-        console.log("no user id")
+        this.$router.replace({ name: "User" });
+      } else {
+        console.log("no user id");
       }
     },
   },

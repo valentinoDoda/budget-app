@@ -3,6 +3,7 @@ import { createStore } from "vuex";
 const store = createStore({
   state() {
     return {
+      userData: null,
       userId: null,
       token: null,
       tokenExpiration: null,
@@ -13,6 +14,9 @@ const store = createStore({
   },
 
   mutations: {
+    setUserData(state, payload) {
+      state.userData = payload;
+    },
     setUser(state, payload) {
       state.token = payload.token;
       state.userId = payload.userId;
@@ -67,16 +71,36 @@ const store = createStore({
         const error = new Error(responseData || "gkol");
         throw error;
       }
-      console.log(responseData)
+      console.log(responseData);
       context.commit("setUser", {
         token: responseData.idToken,
         userId: responseData.localId,
         tokenExpiration: responseData.expiresIn,
       });
     },
+
+    async fetchUserData(context) {
+      const response = await fetch(
+        `https://budget-app-c959e-default-rtdb.europe-west1.firebasedatabase.app/users/${context.getters.getUserId}.json`
+      );
+      const responseData = await response.json();
+
+      if (!response.ok) {
+        const error = new Error(
+          responseData.message || "Failed to fetch user."
+        );
+        throw error;
+      }
+      context.commit("setUserData", responseData);
+      console.log(context.state.userData);
+    },
   },
 
   getters: {
+    getUserData(state) {
+      return state.userData;
+    },
+
     getToken(state) {
       return state.token;
     },
@@ -84,13 +108,13 @@ const store = createStore({
       return state.userId;
     },
     getUserBudget(state) {
-      return state.budget;
+      return state.userData.budget;
     },
     getUserIncomes(state) {
-      return state.incomes;
+      return state.userData.incomes;
     },
     getUserExpenses(state) {
-      return state.expenses;
+      return state.userData.expenses;
     },
   },
 });

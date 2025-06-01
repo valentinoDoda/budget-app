@@ -13,12 +13,12 @@
           <router-link to="/register">EDIT</router-link>
         </div>
         <div class="user_info">
-          <h4>Valentin Doda</h4>
-          <p>Programmer</p>
+          <h4>{{userData.name}}</h4>
+          <p>{{userData.job}}</p>
         </div>
         <div class="user_budget">
           <h4>Budget</h4>
-          <p>$200</p>
+          <p>${{userData.budget}}</p>
         </div>
         <div class="user_nav">
           <div class="user_option">
@@ -59,12 +59,23 @@
         >
       </div>
       <div>
-        <router-view></router-view>
+        <router-view v-slot="{ Component }">
+            <component :data="userData" :is="Component"></component>
+        </router-view>
       </div>
     </div>
   </base-section>
 </template>
 
+<script>
+export default{
+  computed:{
+      userData(){
+        return this.$store.getters.getUserData
+      }
+  },
+}
+</script>
 <style scoped>
 .user_page {
     margin-top: 30px;
