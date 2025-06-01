@@ -61,14 +61,14 @@ export default {
   },
   methods: {
     submitRegister() {
+      const token = this.$store.getters.getToken;
       const userId = this.$store.getters.getUserId;
       if (userId) {
         fetch(
-          `https://budget-app-c959e-default-rtdb.europe-west1.firebasedatabase.app/users/${userId}.json`,
+          `https://budget-app-c959e-default-rtdb.europe-west1.firebasedatabase.app/users/${userId}.json?auth=${token}`,
           {
-            method: "POST",
+            method: "PUT",
             body: JSON.stringify({
-              id: userId,
               name: this.name,
               lastName: this.lastName,
               age: this.age,
@@ -79,6 +79,7 @@ export default {
             }),
           }
         );
+        this.$router.replace({name: "User"})
       }else{
         console.log("no user id")
       }
