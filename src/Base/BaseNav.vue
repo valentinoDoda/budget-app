@@ -29,8 +29,8 @@
           <base-button
             class="links"
             :mode="'third'"
-            :type="''"
-            :to="{ name: 'Hero', replace: true }"
+            :type="'btn'"
+            @click="logout"
           >
             log out
           </base-button>
@@ -41,9 +41,21 @@
 </template>
 <script>
 export default {
+  methods: {
+    logout() {
+      this.$store.commit("setUser", {
+        token: null,
+        userId: null,
+        tokenExpiration: null,
+      });
+      this.$router.replace("/");
+    },
+  },
   computed: {
     curRoute() {
-      return this.$route.path.startsWith("/user") || this.$route.name == "Register"  ;
+      return (
+        this.$route.path.startsWith("/user") || this.$route.name == "Register"
+      );
     },
     goToUser() {
       if (this.curRoute) {

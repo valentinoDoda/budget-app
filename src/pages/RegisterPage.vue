@@ -71,7 +71,7 @@ export default {
     submitRegister() {
       const token = this.$store.getters.getToken;
       const userId = this.$store.getters.getUserId;
-      if (userId) {
+      try {
         fetch(
           `https://budget-app-c959e-default-rtdb.europe-west1.firebasedatabase.app/users/${userId}.json?auth=${token}`,
           {
@@ -88,8 +88,8 @@ export default {
           }
         );
         this.$router.replace({ name: "User" });
-      } else {
-        console.log("no user id");
+      } catch(err) {
+        console.log(err);
       }
     },
   },
