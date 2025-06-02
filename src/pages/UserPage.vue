@@ -13,12 +13,12 @@
           <router-link to="/register">EDIT</router-link>
         </div>
         <div class="user_info">
-          <h4>{{userData.name}}</h4>
-          <p>{{userData.job}}</p>
+          <h4>{{ userData.name }}</h4>
+          <p>{{ userData.job }}</p>
         </div>
         <div class="user_budget">
           <h4>Budget</h4>
-          <p>${{userData.budget}}</p>
+          <p>${{ userData.budget }}</p>
         </div>
         <div class="user_nav">
           <div class="user_option">
@@ -52,15 +52,15 @@
         </div>
         <base-button
           style="font-size: 16px"
-          :type="''"
+          :type="'btn'"
           :mode="'third'"
-          :to="{ name: 'Hero' }"
+          @click="logout"
           >log out</base-button
         >
       </div>
       <div>
         <router-view v-slot="{ Component }">
-            <component :data="userData" :is="Component"></component>
+          <component :data="userData" :is="Component"></component>
         </router-view>
       </div>
     </div>
@@ -68,17 +68,27 @@
 </template>
 
 <script>
-export default{
-  computed:{
-      userData(){
-        return this.$store.getters.getUserData
-      }
+export default {
+  methods: {
+    logout() {
+      this.$store.commit("setUser", {
+        token: null,
+        userId: null,
+        tokenExpiration: null,
+      });
+      this.$router.replace("/");
+    },
   },
-}
+  computed: {
+    userData() {
+      return this.$store.getters.getUserData;
+    },
+  },
+};
 </script>
 <style scoped>
 .user_page {
-    margin-top: 30px;
+  margin-top: 30px;
   display: grid;
   grid-template-columns: 300px 1fr;
   gap: 30px;
