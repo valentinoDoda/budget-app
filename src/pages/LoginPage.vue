@@ -1,15 +1,22 @@
 <template>
-  <div class="sign_card">
+  <load-spinner v-if="showSpinner"></load-spinner>
+  <div v-else class="sign_card">
     <h3>Sign In</h3>
     <p>Sign In and Stay on Top of Your Budget</p>
     <form @submit.prevent="submitForm">
       <div class="form_element">
         <label for="email">Email: </label><br />
-        <input type="email" v-model.trim="email" name="" id="email" />
+        <input type="email" v-model.trim="email" name="" required id="email" />
       </div>
       <div class="form_element">
         <label for="password">Password:</label><br />
-        <input type="password" v-model.trim="password" name="" id="password" />
+        <input
+          type="password"
+          v-model.trim="password"
+          name=""
+          required
+          id="password"
+        />
         <p v-if="!formIsValid">Set correct fields</p>
       </div>
 
@@ -32,12 +39,17 @@
   </div>
 </template>
 <script>
+import LoadSpinner from "../components/LoadSpinner.vue";
 export default {
+  components: {
+    LoadSpinner,
+  },
   data() {
     return {
       email: "",
       password: "",
       formIsValid: true,
+      showSpinner: false,
       error: null,
     };
   },
@@ -48,17 +60,21 @@ export default {
         return;
       }
       this.formIsValid = true;
+      this.showSpinner = true;
       try {
         await this.$store.dispatch("login", {
           email: this.email,
           password: this.password,
         });
       } catch (err) {
+        this.showSpinner = false;
         this.error = err.message || "Failed to auth";
+        alert(this.error);
       }
-      if(!this.error){
-        await this.$store.dispatch("fetchUserData")
-        this.$router.replace({name:"User"})
+      if (!this.error) {
+        console.log("i am here");
+        await this.$store.dispatch("fetchUserData");
+        this.$router.replace({ name: "User" });
       }
       this.error = null;
     },

@@ -44,7 +44,7 @@
 export default {
   data() {
     return {
-      error :null,
+      error: null,
       email: null,
       password: null,
     };
@@ -55,19 +55,25 @@ export default {
         alert("password must be longer");
         return 0;
       }
-      try{
-      await this.$store.dispatch("signup", {
-        email: this.email,
-        password: this.password,
-      })}catch(err){
-        this.error = err.message || "Failed to auth"
+      try {
+        await this.$store.dispatch("signup", {
+          email: this.email,
+          password: this.password,
+        });
+      } catch (err) {
+        this.error = err.message || "Failed to auth";
       }
-      this.error = null
-      if(!this.error){
+      if (!this.error) {
         //
-        this.$router.replace("/register")
-        console.log(this.$store.getters.getUserId,this.$store.getters.getToken) 
+        this.$router.replace("/register");
+        console.log(
+          this.$store.getters.getUserId,
+          this.$store.getters.getToken
+        );
+      }else{
+        alert(this.error)
       }
+      this.error = null;
     },
   },
 };

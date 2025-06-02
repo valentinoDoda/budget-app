@@ -35,8 +35,8 @@ const store = createStore({
 
         const responseData = await fetchData.json();
         if (!fetchData.ok) {
-          console.log(responseData);
-          const error = new Error(responseData || "gkol");
+          console.log(responseData.error?.message, responseData)
+          const error = new Error(responseData.error?.message);
           throw error;
         }
 
@@ -47,7 +47,8 @@ const store = createStore({
           tokenExpiration: responseData.expiresIn,
         });
       } catch (err) {
-        console.log(this.err);
+        console.log(err)
+        throw err;
       }
     },
     async signup(context, payload) {
@@ -67,7 +68,7 @@ const store = createStore({
         const responseData = await request.json();
         if (!request.ok) {
           console.log(responseData);
-          const error = new Error(responseData || "gkol");
+          const error = new Error(responseData.error?.message);
           throw error;
         }
         console.log(responseData);
@@ -77,7 +78,8 @@ const store = createStore({
           tokenExpiration: responseData.expiresIn,
         });
       } catch (err) {
-        console.log(this.err);
+        console.log(err);
+        throw err
       }
     },
   },
