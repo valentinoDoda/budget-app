@@ -1,7 +1,8 @@
 import { createStore } from "vuex";
 import userModule from "./users/index";
+import movementsModule from "./movements/index";
 const store = createStore({
-  modules: { userModule },
+  modules: { userModule, movementsModule },
   state() {
     return {
       userId: null,
@@ -35,7 +36,7 @@ const store = createStore({
 
         const responseData = await fetchData.json();
         if (!fetchData.ok) {
-          console.log(responseData.error?.message, responseData)
+          console.log(responseData.error?.message, responseData);
           const error = new Error(responseData.error?.message);
           throw error;
         }
@@ -47,7 +48,7 @@ const store = createStore({
           tokenExpiration: responseData.expiresIn,
         });
       } catch (err) {
-        console.log(err)
+        console.log(err);
         throw err;
       }
     },
@@ -79,7 +80,7 @@ const store = createStore({
         });
       } catch (err) {
         console.log(err);
-        throw err
+        throw err;
       }
     },
   },
