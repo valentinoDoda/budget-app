@@ -15,7 +15,7 @@
     </div>
   </div>
   <ul>
-    <move-element></move-element>
+    <move-element v-for="movement in allMovements" :movementItem="movement" :key="movement.title"></move-element>
   </ul>
 </template>
 <script>
@@ -23,6 +23,15 @@ import MoveElement from "../components/MoveElement.vue";
 export default {
   components: {
     MoveElement,
+  },
+  computed: {
+    allMovements() {
+      return this.$store.getters.getMoves;
+    },
+  },
+  mounted() {
+    console.log("I done")
+    this.$store.dispatch("setMovements");
   },
   methods: {
     changeType() {

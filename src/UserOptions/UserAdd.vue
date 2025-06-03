@@ -2,9 +2,10 @@
   <base-section>
     <div class="form-container">
       <h2>Transaction Form</h2>
-      <form>
+      <form @submit.prevent="addNewMove">
         <label for="title">Title</label>
         <input
+          v-model="title"
           type="text"
           id="title"
           name="title"
@@ -14,6 +15,7 @@
 
         <label for="description">Description</label>
         <textarea
+          v-model="description"
           id="description"
           name="description"
           rows="3"
@@ -23,6 +25,7 @@
 
         <label for="value">Value</label>
         <input
+          v-model="value"
           type="number"
           id="value"
           name="value"
@@ -32,14 +35,14 @@
         />
 
         <label for="type">Type</label>
-        <select id="type" name="type" required>
+        <select id="type" v-model="type" name="type" required>
           <option value="">Select Type</option>
           <option value="income" selected>Income</option>
           <option value="expense">Expense</option>
         </select>
 
         <label for="niche">Niche</label>
-        <select id="niche" name="niche" required>
+        <select id="niche" v-model="niche" name="niche" required>
           <option value="other">Select Niche</option>
           <option value="marketing">Marketing</option>
           <option value="development" selected>Development</option>
@@ -47,13 +50,44 @@
           <option value="other">Other</option>
         </select>
 
-        <base-button style="font-size: 16px !important" :type="'btn'" :mode="'main'"
+        <base-button
+          style="font-size: 16px !important"
+          :type="'btn'"
+          :mode="'main'"
           >add new move</base-button
         >
       </form>
     </div>
   </base-section>
 </template>
+
+<script>
+export default {
+  data() {
+    return {
+      title: "",
+      description: "",
+      value: "",
+      type: "",
+      niche: "",
+    };
+  },
+  methods:{
+    addNewMove(){
+      const newMovement = {
+        date: new Date(),
+        title: this.title,
+        description: this.description,
+        value: this.value, 
+        type: this.type,
+        niche: this.niche
+      }
+      this.$store.dispatch("addMovements", newMovement)
+    }
+  }
+};
+</script>
+
 <style scoped>
 .form-container {
   margin: auto;

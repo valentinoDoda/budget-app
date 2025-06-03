@@ -48,6 +48,7 @@ export default {
         userId: null,
         tokenExpiration: null,
       });
+      this.$store.commit("clearMovements");
       this.$router.replace("/");
     },
   },
