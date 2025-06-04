@@ -5,15 +5,15 @@
         Date : <span>{{ userDate }}</span>
       </p>
       <h4>Budget</h4>
-      <p>${{userData.budget}}</p>
+      <p>{{ valueFormat.budget }}</p>
     </div>
     <div class="user_incomes">
       <p class="title">Incomes</p>
-      <p class="value">{{userData.incomes}}</p>
+      <p class="value">{{ valueFormat.incomes }}</p>
     </div>
     <div class="user_expenses">
       <p class="title">Expenses</p>
-      <p class="value">{{userData.expenses}}</p>
+      <p class="value">{{ valueFormat.expenses }}</p>
     </div>
   </div>
 
@@ -28,12 +28,22 @@
 
 <script>
 export default {
-  data() {
-    
-  },
+  data() {},
   computed: {
-    userData(){
-      return this.$store.getters.getUserData
+    valueFormat() {
+      const locale = navigator.language;
+      const euroFormatter = new Intl.NumberFormat(locale, {
+        style: "currency",
+        currency: "EUR",
+      });
+      return {
+        budget: euroFormatter.format(this.userData.budget),
+        incomes: euroFormatter.format(this.userData.incomes),
+        expense: euroFormatter.format(this.userData.expenses),
+      };
+    },
+    userData() {
+      return this.$store.getters.getUserData;
     },
 
     userDate() {

@@ -18,7 +18,7 @@
         </div>
         <div class="user_budget">
           <h4>Budget</h4>
-          <p>${{ userData.budget }}</p>
+          <p>{{ userData.budget }}</p>
         </div>
         <div class="user_nav">
           <div class="user_option">
