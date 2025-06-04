@@ -14,8 +14,18 @@
       </div>
     </div>
   </div>
-  <ul>
-    <move-element v-for="movement in allMovements" :movementItem="movement" :key="movement.title"></move-element>
+  <h3
+    style="text-align: center; font-size: 23px; padding: 10px; color: #999999"
+    v-if="allMovements.length == 0"
+  >
+    No momvements yet, add some
+  </h3>
+  <ul v-else>
+    <move-element
+      v-for="movement in allMovements"
+      :movementItem="movement"
+      :key="movement.title"
+    ></move-element>
   </ul>
 </template>
 <script>
@@ -30,7 +40,7 @@ export default {
     },
   },
   mounted() {
-    console.log("I done")
+    console.log("I done");
     this.$store.dispatch("setMovements");
   },
   methods: {
