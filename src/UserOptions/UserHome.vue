@@ -37,9 +37,9 @@ export default {
         currency: "EUR",
       });
       return {
-        budget: euroFormatter.format(this.userData.budget),
-        incomes: euroFormatter.format(this.userData.incomes),
-        expense: euroFormatter.format(this.userData.expenses),
+        budget: euroFormatter.format(this.userData?.budget),
+        incomes: euroFormatter.format(this.userData?.incomes),
+        expenses: euroFormatter.format(this.userData?.expenses),
       };
     },
     userData() {

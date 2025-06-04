@@ -7,6 +7,9 @@ export default {
   },
 
   mutations: {
+    resetFetching(state){
+      state.isFetching = false
+    },
     addMovements(state, payload) {
       state.movements.unshift(payload);
     },

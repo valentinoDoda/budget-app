@@ -15,6 +15,9 @@ export default {
     changeExpenses(state, payload) {
       state.userData.expenses += payload;
     },
+    clearUserData(state) {
+      state.userData = null;
+    },
     setUserData(state, payload) {
       state.userData = payload;
     },

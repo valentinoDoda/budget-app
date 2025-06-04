@@ -1,7 +1,7 @@
 <template>
   <base-section>
     <div class="user_page">
-      <div class="user_card">
+      <div v-if="userData" class="user_card">
         <div class="user_logo">
           <div class="logo_img">
             <img
@@ -76,7 +76,9 @@ export default {
         userId: null,
         tokenExpiration: null,
       });
-      this.$store.commit("clearMovements")
+      this.$store.commit("clearMovements");
+      this.$store.commit("resetFetching");
+
       this.$router.replace("/");
     },
   },
@@ -84,9 +86,9 @@ export default {
     userData() {
       return this.$store.getters.getUserData;
     },
-    userName(){
-      return this.userData.name +" "+ this.userData.lastName
-    }
+    userName() {
+      return this.userData?.name + " " + this.userData?.lastName;
+    },
   },
 };
 </script>

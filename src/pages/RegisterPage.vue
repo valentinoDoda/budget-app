@@ -6,7 +6,6 @@
       <form @submit.prevent="submitRegister">
         <label for="name">Name</label>
         <input
-         
           type="text"
           id="name"
           v-model.trim="name"
@@ -17,7 +16,6 @@
 
         <label for="lastname">Last Name</label>
         <input
-          
           type="text"
           id="lastname"
           v-model.trim="lastName"
@@ -28,7 +26,6 @@
 
         <label for="age">Age</label>
         <input
-        
           type="number"
           id="age"
           v-model.trim="age"
@@ -56,8 +53,8 @@
 <script>
 import LoadSpinner from "../components/LoadSpinner.vue";
 export default {
-  components:{
-    LoadSpinner
+  components: {
+    LoadSpinner,
   },
   data() {
     return {
@@ -70,6 +67,7 @@ export default {
   },
   computed: {
     setUserData() {
+      console.log(this.$store.getters.getUserData);
       return this.$store.getters.getUserData;
     },
   },
@@ -78,8 +76,8 @@ export default {
       const token = this.$store.getters.getToken;
       const userId = this.$store.getters.getUserId;
       try {
-      this.isLoading = true;
-       await fetch(
+        this.isLoading = true;
+        await fetch(
           `https://budget-app-c959e-default-rtdb.europe-west1.firebasedatabase.app/users/${userId}.json?auth=${token}`,
           {
             method: "PUT",
@@ -88,9 +86,9 @@ export default {
               lastName: this.lastName,
               age: this.age,
               job: this.job,
-              budget:  0,
-              incomes:  0,
-              expenses:  0,
+              budget: this.setUserData?.budget || 0,
+              incomes: this.setUserData?.incomes || 0,
+              expenses: this.setUserData?.expenses || 0,
             }),
           }
         );
@@ -98,7 +96,7 @@ export default {
 
         await this.$store.dispatch("fetchUserData");
         this.$router.replace({ name: "User" });
-      } catch(err) {
+      } catch (err) {
         console.log(err);
       }
     },
