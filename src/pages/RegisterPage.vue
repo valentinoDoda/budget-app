@@ -45,6 +45,8 @@
           required
         />
 
+        <label for="userImage">Image url:</label>
+        <input type="text" id="job" v-model.trim="image" name="job" />
         <button type="submit">Submit</button>
       </form>
     </div>
@@ -58,6 +60,7 @@ export default {
   },
   data() {
     return {
+      image: "",
       name: "",
       lastName: "",
       isLoading: false,
@@ -75,29 +78,41 @@ export default {
     async submitRegister() {
       const token = this.$store.getters.getToken;
       const userId = this.$store.getters.getUserId;
-      try {
-        this.isLoading = true;
-        await fetch(
-          `https://budget-app-c959e-default-rtdb.europe-west1.firebasedatabase.app/users/${userId}.json?auth=${token}`,
-          {
-            method: "PUT",
-            body: JSON.stringify({
-              name: this.name,
-              lastName: this.lastName,
-              age: this.age,
-              job: this.job,
-              budget: this.setUserData?.budget || 0,
-              incomes: this.setUserData?.incomes || 0,
-              expenses: this.setUserData?.expenses || 0,
-            }),
-          }
-        );
-        this.isLoading = false;
+      const image = new Promise((resolve) => {
+        const img = new Image();
+        img.onload = () => resolve(true);
+        img.onerror = () => resolve(false);
+        img.src = this.image;
+      });
+      const imageResponse = await image;
+      console.log(imageResponse);
+      if (imageResponse || !this.image) {
+        try {
+          this.isLoading = true;
+          await fetch(
+            `https://budget-app-c959e-default-rtdb.europe-west1.firebasedatabase.app/users/${userId}.json?auth=${token}`,
+            {
+              method: "PUT",
+              body: JSON.stringify({
+                name: this.name,
+                lastName: this.lastName,
+                age: this.age,
+                job: this.job,
+                image:  this.image || this.setUserData?.image,
+                budget: this.setUserData?.budget || 0,
+                incomes: this.setUserData?.incomes || 0,
+                expenses: this.setUserData?.expenses || 0,
+              }),
+            }
+          );
 
-        await this.$store.dispatch("fetchUserData");
-        this.$router.replace({ name: "User" });
-      } catch (err) {
-        console.log(err);
+          await this.$store.dispatch("fetchUserData");
+          this.isLoading = false;
+
+          this.$router.replace({ name: "User" });
+        } catch (err) {
+          console.log(err);
+        }
       }
     },
   },
