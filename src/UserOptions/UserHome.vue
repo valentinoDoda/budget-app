@@ -8,12 +8,12 @@
       <p>${{userData.budget}}</p>
     </div>
     <div class="user_incomes">
-      <p class="title">Expenses</p>
-      <p class="value">${{userData.expenses}}</p>
+      <p class="title">Incomes</p>
+      <p class="value">{{userData.incomes}}</p>
     </div>
     <div class="user_expenses">
       <p class="title">Expenses</p>
-      <p class="value">${{userData.incomes}}</p>
+      <p class="value">{{userData.expenses}}</p>
     </div>
   </div>
 

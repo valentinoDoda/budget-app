@@ -2,19 +2,45 @@ export default {
   state() {
     return {
       userData: null,
-      budget: null,
-      incomes: null,
-      expenses: null,
+     
     };
   },
 
   mutations: {
+    changeBudget(state, payload){
+      state.userData.budget = payload
+    },
+    changeIncomes(state, payload){
+      state.userData.incomes += payload
+    },
+    changeExpenses(state, payload){
+      state.userData.expenses += payload
+    },
     setUserData(state, payload) {
       state.userData = payload;
     },
   },
 
   actions: {
+    async changeUserBudget(context) {
+      const token = context.getters.getToken;
+      const userId = context.getters.getUserId;
+      const response = await fetch(
+        `https://budget-app-c959e-default-rtdb.europe-west1.firebasedatabase.app/users/${userId}.json?auth=${token}`,
+        {
+          method: "PUT",
+          body: JSON.stringify({
+            budget: context.getters.getUserBudget ,
+            incomes: context.getters.getUserIncomes ,
+            expenses: context.getters.getUserExpenses ,
+          }),
+        }
+
+       
+      );
+      console.log(response)
+      
+    },
     async fetchUserData(context) {
       try {
         const response = await fetch(

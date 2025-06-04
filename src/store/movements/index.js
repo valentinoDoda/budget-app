@@ -2,7 +2,7 @@ export default {
   state() {
     return {
       movements: [],
-      isFetching: false
+      isFetching: false,
     };
   },
 
@@ -13,9 +13,9 @@ export default {
     setMovements(state, payload) {
       state.movements.unshift(payload);
     },
-    clearMovements(state){
+    clearMovements(state) {
       state.movements = [];
-    }
+    },
   },
   getters: {
     getMoves(state) {
@@ -23,12 +23,27 @@ export default {
     },
   },
   actions: {
-    addMovements(context, move) {
+    async addMovements(context, move) {
       const getUserId = context.getters.getUserId;
       context.commit("addMovements", move);
-
+      if (move.type == "income") {
+        const budget = context.getters.getUserBudget + move.value;
+        context.commit("changeBudget", budget);
+        context.commit("changeIncomes", move.value);
+        await context.dispatch("changeUserBudget");
+      } else {
+        if (move.value < context.getters.getUserBudget) {
+          const budget = context.getters.getUserBudget - move.value;
+          context.commit("changeBudget", budget);
+          context.commit("changeExpenses", move.value);
+          await context.dispatch("changeUserBudget");
+        } else {
+          console.log("You cannot add expense bigger than budget");
+          return 0;
+        }
+      }
       try {
-        const response = fetch(
+        const response = await fetch(
           `https://budget-app-c959e-default-rtdb.europe-west1.firebasedatabase.app/movements/${getUserId}.json`,
           {
             method: "POST",
@@ -47,28 +62,28 @@ export default {
     },
     async setMovements(context) {
       const getUserId = context.getters.getUserId;
-      if(!context.state.isFetching){
-        console.log('fetch', context.state.isFetching)
-      const response = await fetch(
-        `https://budget-app-c959e-default-rtdb.europe-west1.firebasedatabase.app/movements/${getUserId}.json`
-      );
-
-      const responseData = await response.json();
-      if (!response.ok) {
-        throw new Error(
-          "Something went wrong with fetching movements or just dont exist yet"
+      if (!context.state.isFetching) {
+        console.log("fetch", context.state.isFetching);
+        const response = await fetch(
+          `https://budget-app-c959e-default-rtdb.europe-west1.firebasedatabase.app/movements/${getUserId}.json`
         );
-      }
-      context.state.isFetching = true
-      if (context.state.movements.length == 0 && responseData) {
-        for (const key in responseData) {
-          context.commit("setMovements", responseData[key]);
+
+        const responseData = await response.json();
+        if (!response.ok) {
+          throw new Error(
+            "Something went wrong with fetching movements or just dont exist yet"
+          );
         }
-      } else {
-        console.log(responseData, "the database is empty");
+        context.state.isFetching = true;
+        if (context.state.movements.length == 0 && responseData) {
+          for (const key in responseData) {
+            context.commit("setMovements", responseData[key]);
+          }
+        } else {
+          console.log(responseData, "the database is empty");
+        }
+        console.log("stop fetch", context.state.isFetching);
       }
-      console.log('stop fetch', context.state.isFetching)
-    }
     },
   },
 };

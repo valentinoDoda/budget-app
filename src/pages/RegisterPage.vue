@@ -1,6 +1,7 @@
 <template>
   <base-section>
-    <div class="form-container">
+    <load-spinner v-if="isLoading"></load-spinner>
+    <div v-else class="form-container">
       <h2>User Info</h2>
       <form @submit.prevent="submitRegister">
         <label for="name">Name</label>
@@ -10,7 +11,7 @@
           id="name"
           v-model.trim="name"
           name="name"
-          :placeholder="setUserData.name"
+          :placeholder="setUserData?.name"
           required
         />
 
@@ -21,7 +22,7 @@
           id="lastname"
           v-model.trim="lastName"
           name="lastname"
-          :placeholder="setUserData.lastName"
+          :placeholder="setUserData?.lastName"
           required
         />
 
@@ -33,7 +34,7 @@
           v-model.trim="age"
           name="age"
           min="0"
-          :placeholder="setUserData.age"
+          :placeholder="setUserData?.age"
           required
         />
 
@@ -43,7 +44,7 @@
           id="job"
           v-model.trim="job"
           name="job"
-          :placeholder="setUserData.job"
+          :placeholder="setUserData?.job"
           required
         />
 
@@ -53,11 +54,16 @@
   </base-section>
 </template>
 <script>
+import LoadSpinner from "../components/LoadSpinner.vue";
 export default {
+  components:{
+    LoadSpinner
+  },
   data() {
     return {
       name: "",
       lastName: "",
+      isLoading: false,
       age: "",
       job: "",
     };
@@ -68,11 +74,12 @@ export default {
     },
   },
   methods: {
-    submitRegister() {
+    async submitRegister() {
       const token = this.$store.getters.getToken;
       const userId = this.$store.getters.getUserId;
       try {
-        fetch(
+      this.isLoading = true;
+       await fetch(
           `https://budget-app-c959e-default-rtdb.europe-west1.firebasedatabase.app/users/${userId}.json?auth=${token}`,
           {
             method: "PUT",
@@ -81,12 +88,15 @@ export default {
               lastName: this.lastName,
               age: this.age,
               job: this.job,
-              budget: this.$store.getters.getUserBudget || 0,
-              incomes: this.$store.getters.getUserIncomes || 0,
-              expenses: this.$store.getters.getUserExpenses || 0,
+              budget:  0,
+              incomes:  0,
+              expenses:  0,
             }),
           }
         );
+        this.isLoading = false;
+
+        await this.$store.dispatch("fetchUserData");
         this.$router.replace({ name: "User" });
       } catch(err) {
         console.log(err);
