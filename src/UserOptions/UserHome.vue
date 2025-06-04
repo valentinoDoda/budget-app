@@ -5,7 +5,7 @@
         Date : <span>{{ userDate }}</span>
       </p>
       <h4>Budget</h4>
-      <p>{{ valueFormat.budget }}</p>
+      <p>{{ valueFormat.budget}}</p>
     </div>
     <div class="user_incomes">
       <p class="title">Incomes</p>
@@ -37,9 +37,9 @@ export default {
         currency: "EUR",
       });
       return {
-        budget: euroFormatter.format(this.userData?.budget),
-        incomes: euroFormatter.format(this.userData?.incomes),
-        expenses: euroFormatter.format(this.userData?.expenses),
+        budget: euroFormatter.format(this.userData?.budget || 0),
+        incomes: euroFormatter.format(this.userData?.incomes || 0),
+        expenses: euroFormatter.format(this.userData?.expenses || 0),
       };
     },
     userData() {

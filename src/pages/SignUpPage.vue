@@ -64,14 +64,30 @@ export default {
         this.error = err.message || "Failed to auth";
       }
       if (!this.error) {
-        //
+        const token = this.$store.getters.getToken;
+        const userId = this.$store.getters.getUserId;
+        await fetch(
+          `https://budget-app-c959e-default-rtdb.europe-west1.firebasedatabase.app/users/${userId}.json?auth=${token}`,
+          {
+            method: "PUT",
+            body: JSON.stringify({
+              name: "user name",
+              lastName: "user last name",
+              age: "user age",
+              job: "user job",
+              budget: 0,
+              incomes: 0,
+              expenses: 0,
+            }),
+          }
+        );
         this.$router.replace("/register");
         console.log(
           this.$store.getters.getUserId,
           this.$store.getters.getToken
         );
-      }else{
-        alert(this.error)
+      } else {
+        alert(this.error);
       }
       this.error = null;
     },

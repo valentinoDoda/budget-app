@@ -49,6 +49,7 @@ export default {
         tokenExpiration: null,
       });
       this.$store.commit("clearMovements");
+      this.$store.commit("clearUserData");
       this.$store.commit("resetFetching");
 
       this.$router.replace("/");

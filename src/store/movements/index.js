@@ -7,8 +7,8 @@ export default {
   },
 
   mutations: {
-    resetFetching(state){
-      state.isFetching = false
+    resetFetching(state) {
+      state.isFetching = false;
     },
     addMovements(state, payload) {
       state.movements.unshift(payload);
@@ -28,23 +28,27 @@ export default {
   actions: {
     async addMovements(context, move) {
       const getUserId = context.getters.getUserId;
-      context.commit("addMovements", move);
       if (move.type == "income") {
         const budget = context.getters.getUserBudget + move.value;
         context.commit("changeBudget", budget);
         context.commit("changeIncomes", move.value);
+        context.commit("addMovements", move);
+
         await context.dispatch("changeUserBudget");
       } else {
         if (move.value < context.getters.getUserBudget) {
           const budget = context.getters.getUserBudget - move.value;
           context.commit("changeBudget", budget);
           context.commit("changeExpenses", move.value);
+          context.commit("addMovements", move);
+
           await context.dispatch("changeUserBudget");
         } else {
           console.log("You cannot add expense bigger than budget");
           return 0;
         }
       }
+
       try {
         const response = await fetch(
           `https://budget-app-c959e-default-rtdb.europe-west1.firebasedatabase.app/movements/${getUserId}.json`,

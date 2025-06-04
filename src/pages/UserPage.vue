@@ -1,7 +1,7 @@
 <template>
   <base-section>
     <div class="user_page">
-      <div v-if="userData" class="user_card">
+      <div class="user_card">
         <div class="user_logo">
           <div class="logo_img">
             <img
@@ -14,11 +14,11 @@
         </div>
         <div class="user_info">
           <h4>{{ userName }}</h4>
-          <p>{{ userData.job }}</p>
+          <p>{{ userData?.job || "you dont have set job yet" }}</p>
         </div>
         <div class="user_budget">
           <h4>Budget</h4>
-          <p>{{ userData.budget }}</p>
+          <p>{{ userData?.budget || 0 }}</p>
         </div>
         <div class="user_nav">
           <div class="user_option">
@@ -77,6 +77,7 @@ export default {
         tokenExpiration: null,
       });
       this.$store.commit("clearMovements");
+      this.$store.commit("clearUserData");
       this.$store.commit("resetFetching");
 
       this.$router.replace("/");
