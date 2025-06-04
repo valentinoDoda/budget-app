@@ -13,7 +13,7 @@
           <router-link to="/register">EDIT</router-link>
         </div>
         <div class="user_info">
-          <h4>{{ userData.name }}</h4>
+          <h4>{{ userName }}</h4>
           <p>{{ userData.job }}</p>
         </div>
         <div class="user_budget">
@@ -84,6 +84,9 @@ export default {
     userData() {
       return this.$store.getters.getUserData;
     },
+    userName(){
+      return this.userData.name +" "+ this.userData.lastName
+    }
   },
 };
 </script>
