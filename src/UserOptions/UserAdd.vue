@@ -72,19 +72,20 @@ export default {
       niche: "",
     };
   },
-  methods:{
-    addNewMove(){
+  methods: {
+    async addNewMove() {
       const newMovement = {
         date: new Date(),
         title: this.title,
         description: this.description,
-        value: this.value, 
+        value: this.value,
         type: this.type,
-        niche: this.niche
-      }
-      this.$store.dispatch("addMovements", newMovement)
-    }
-  }
+        niche: this.niche,
+      };
+      await this.$store.dispatch("addMovements", newMovement);
+      this.$router.replace({ name: "UserHome" });
+    },
+  },
 };
 </script>
 

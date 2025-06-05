@@ -9,9 +9,6 @@
           <option value="expense">exprense</option>
         </select>
       </div>
-      <div class="search">
-        <img @click="changeType" src="../icons/search_4121114.png" alt="" />
-      </div>
     </div>
   </div>
   <h3
@@ -53,11 +50,6 @@ export default {
   created() {
     console.log("I done");
     this.$store.dispatch("setMovements");
-  },
-  methods: {
-    changeType() {
-      console.log(this.$refs.type.value);
-    },
   },
 };
 </script>
