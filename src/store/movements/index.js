@@ -24,6 +24,12 @@ export default {
     getMoves(state) {
       return state.movements;
     },
+    getIncomes(_, getters){
+      return getters.getMoves.filter(move => move.type == "income")
+    },
+    getExpenses(_, getters){
+      return getters.getMoves.filter(move => move.type == "expense")
+    }
   },
   actions: {
     async addMovements(context, move) {
@@ -69,6 +75,7 @@ export default {
     },
     async setMovements(context) {
       const getUserId = context.getters.getUserId;
+      console.log(context.getters.getIncomes);
       if (!context.state.isFetching) {
         console.log("fetch", context.state.isFetching);
         const response = await fetch(

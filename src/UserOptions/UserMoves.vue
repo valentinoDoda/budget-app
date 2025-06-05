@@ -3,8 +3,8 @@
     <p>moves</p>
     <div class="filter">
       <div class="filter_type">
-        <select ref="type" name="" id="">
-          <option selected value="">all</option>
+        <select v-model="type" name="" id="">
+          <option selected value="all">all</option>
           <option value="income">income</option>
           <option value="expense">exprense</option>
         </select>
@@ -31,12 +31,23 @@
 <script>
 import MoveElement from "../components/MoveElement.vue";
 export default {
+  data() {
+    return {
+      type: "all",
+    };
+  },
   components: {
     MoveElement,
   },
   computed: {
     allMovements() {
-      return this.$store.getters.getMoves;
+      if (this.type == "all") {
+        return this.$store.getters.getMoves;
+      } else if (this.type == "income") {
+        return this.$store.getters.getIncomes;
+      } else {
+        return this.$store.getters.getExpenses;
+      }
     },
   },
   mounted() {
