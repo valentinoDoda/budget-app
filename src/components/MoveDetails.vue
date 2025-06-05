@@ -1,23 +1,23 @@
 <template>
   <base-section>
     <div class="card">
-      <div class="date">date : 13/03/2025</div>
-      <div class="type expense">Income</div>
-      <div class="amount">$300</div>
+      <div class="date">date : {{ itemData.date }}</div>
+      <div :class="'type ' + itemData.type">{{ itemData.type }}</div>
+      <div class="amount">{{ itemData.value }}</div>
 
       <div class="field">
         <div class="field-title">Title:</div>
-        <div class="field-value">Shoes</div>
+        <div class="field-value">{{ itemData.title }}</div>
       </div>
 
       <div class="field">
         <div class="field-title">Description:</div>
-        <div class="field-value">Shoes about football shoes</div>
+        <div class="field-value">{{ itemData.description }}</div>
       </div>
 
       <div class="field">
         <div class="field-title">Niche:</div>
-        <div class="field-value">Shopping</div>
+        <div class="field-value">{{ itemData.niche }}</div>
       </div>
       <button @click="goBack" class="go-back">GO BACK</button>
     </div>
@@ -26,6 +26,12 @@
 
 <script>
 export default {
+  props: ["detail"],
+  computed: {
+    itemData() {
+      return this.$store.getters.getDetails;
+    },
+  },
   methods: {
     goBack() {
       this.$router.back();

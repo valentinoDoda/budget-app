@@ -1,12 +1,16 @@
 export default {
   state() {
     return {
+      movementDetails: "",
       movements: [],
       isFetching: false,
     };
   },
 
   mutations: {
+    setMovementDetails(state, payload) {
+      state.movementDetails = payload;
+    },
     resetFetching(state) {
       state.isFetching = false;
     },
@@ -21,15 +25,18 @@ export default {
     },
   },
   getters: {
+    getDetails(state) {
+      return state.movementDetails;
+    },
     getMoves(state) {
       return state.movements;
     },
-    getIncomes(_, getters){
-      return getters.getMoves.filter(move => move.type == "income")
+    getIncomes(_, getters) {
+      return getters.getMoves.filter((move) => move.type == "income");
     },
-    getExpenses(_, getters){
-      return getters.getMoves.filter(move => move.type == "expense")
-    }
+    getExpenses(_, getters) {
+      return getters.getMoves.filter((move) => move.type == "expense");
+    },
   },
   actions: {
     async addMovements(context, move) {

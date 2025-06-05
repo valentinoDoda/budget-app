@@ -9,7 +9,7 @@
       </div>
       <div class="move_value">{{ valueFormat }}</div>
       <div class="move_date">{{ dateFormat }}</div>
-      <button>view more</button>
+      <button @click="viewDetails">view more</button>
     </div>
   </li>
 </template>
@@ -43,13 +43,25 @@ export default {
   },
   methods: {
     viewDetails() {
-      this.$router.push({ name: "MoveDetail", params: { detail: "2" } });
+      const details = {
+        title: this.movementItem.title,
+        description: this.movementItem.description,
+        type: this.movementItem.type,
+        niche: this.movementItem.niche,
+        date: this.dateFormat,
+        value: this.valueFormat,
+      };
+
+      this.$store.commit("setMovementDetails", details);
+      this.$router.push({
+        name: "MoveDetail",
+        params: { detail: this.movementItem.date },
+      });
     },
   },
 };
 </script>
 <style scoped>
-
 li {
   margin-top: 23px;
 }

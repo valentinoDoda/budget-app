@@ -28,7 +28,7 @@ const routes = [
     ],
   },
   { path: "/user/add", name: "UserAdd", component: UserAdd },
-  { path: "/user/moves/:detail", name: "MoveDetail", component: MoveDetails },
+  { path: "/user/moves/:detail", name: "MoveDetail", component: MoveDetails , props: true},
   { path: "/:notFound(.*)", redirect: { name: "Hero" } },
 ];
 
