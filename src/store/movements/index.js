@@ -82,7 +82,7 @@ export default {
     },
     async setMovements(context) {
       const getUserId = context.getters.getUserId;
-      console.log(context.getters.getIncomes);
+      
       if (!context.state.isFetching) {
         console.log("fetch", context.state.isFetching);
         const response = await fetch(

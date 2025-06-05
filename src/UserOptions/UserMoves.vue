@@ -50,7 +50,7 @@ export default {
       }
     },
   },
-  mounted() {
+  created() {
     console.log("I done");
     this.$store.dispatch("setMovements");
   },

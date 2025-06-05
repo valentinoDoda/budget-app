@@ -55,7 +55,7 @@ export default {
       this.$store.commit("setMovementDetails", details);
       this.$router.push({
         name: "MoveDetail",
-        params: { detail: this.movementItem.date },
+        params: { detail: new Date(this.movementItem.date).toISOString() },
       });
     },
   },

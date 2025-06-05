@@ -28,7 +28,6 @@
 
 <script>
 export default {
-  data() {},
   computed: {
     valueFormat() {
       const locale = navigator.language;
