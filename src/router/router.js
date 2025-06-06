@@ -23,7 +23,10 @@ router.beforeEach((to, from, next) => {
       next({ name: "Login" });
     }
   } else {
-    if (!from.path.startsWith("/user")) {
+    if (
+      !from.path.startsWith("/user") ||
+      (from.path.startsWith("/user") && !store.getters.getUserId)
+    ) {
       if (to.name == "Register") {
         if (from.name == "Sign") {
           next();
@@ -35,6 +38,7 @@ router.beforeEach((to, from, next) => {
         next();
       }
     } else {
+      console.log(from.path.startsWith("/user"));
       next(router.replace({ name: from.name }));
     }
   }
