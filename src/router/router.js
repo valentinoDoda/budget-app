@@ -23,15 +23,19 @@ router.beforeEach((to, from, next) => {
       next({ name: "Login" });
     }
   } else {
-    if (to.name == "Register") {
-      if (from.name == "Sign") {
-        next();
+    if (!from.path.startsWith("/user")) {
+      if (to.name == "Register") {
+        if (from.name == "Sign") {
+          next();
+        } else {
+          alert("You can go to this page only after a sign up");
+          next(router.replace({ name: from.name }));
+        }
       } else {
-        alert("You can go to this page only after a sign up");
-        next(router.replace({ name: from.name }));
+        next();
       }
     } else {
-      next();
+      next(router.replace({ name: from.name }));
     }
   }
 });
