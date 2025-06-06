@@ -20,15 +20,38 @@ const routes = [
     redirect: { name: "UserHome" },
     name: "User",
     component: UserPage,
+    meta: { loginRequire: true },
     children: [
-      { path: "home", name: "UserHome", component: UserHome },
-      { path: "edit", name: "UserEdit", component: MoveDetails },
-      { path: "moves", name: "UserMoves", component: UserMoves },
-      { path: "stats", name: "UserStats", component: UserStats },
+      {
+        path: "home",
+        name: "UserHome",
+        component: UserHome,
+      },
+      {
+        path: "edit",
+        name: "UserEdit",
+        component: RegisterPage,
+      },
+      {
+        path: "moves",
+        name: "UserMoves",
+        component: UserMoves,
+      },
+      {
+        path: "stats",
+        name: "UserStats",
+        component: UserStats,
+      },
     ],
   },
   { path: "/user/add", name: "UserAdd", component: UserAdd },
-  { path: "/user/moves/:detail", name: "MoveDetail", component: MoveDetails , props: true},
+  {
+    path: "/user/moves/:detail",
+    name: "MoveDetail",
+    component: MoveDetails,
+    meta: { loginRequire: true },
+    props: true,
+  },
   { path: "/:notFound(.*)", redirect: { name: "Hero" } },
 ];
 

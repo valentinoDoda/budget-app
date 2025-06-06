@@ -13,7 +13,7 @@
               srcset=""
             />
           </div>
-          <router-link to="/register">EDIT</router-link>
+          <router-link :to="{name : 'UserEdit'}">EDIT</router-link>
         </div>
         <div class="user_info">
           <h4>{{ userName }}</h4>
