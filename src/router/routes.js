@@ -4,7 +4,6 @@ import SignUpPage from "../pages/SignUpPage.vue";
 import UserPage from "../pages/UserPage.vue";
 import UserHome from "../UserOptions/UserHome.vue";
 import UserMoves from "../UserOptions/UserMoves.vue";
-import UserStats from "../UserOptions/UserStatisticks.vue";
 import UserAdd from "../UserOptions/UserAdd.vue";
 import RegisterPage from "../pages/RegisterPage.vue";
 import MoveDetails from "../components/MoveDetails.vue";
@@ -36,11 +35,6 @@ const routes = [
         path: "moves",
         name: "UserMoves",
         component: UserMoves,
-      },
-      {
-        path: "stats",
-        name: "UserStats",
-        component: UserStats,
       },
     ],
   },

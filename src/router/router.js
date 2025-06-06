@@ -8,15 +8,7 @@ const router = createRouter({
 router.beforeEach((to, from, next) => {
   if (to.meta.loginRequire) {
     if (store.getters.getUserId) {
-      if (to.name == "MoveDetail") {
-        if (from.name == "UserMoves") {
-          next();
-        } else {
-          alert("Den mporeis na deis tis leptomeries xeirokeinhta");
-        }
-      } else {
-        next();
-      }
+      next();
     } else {
       console.log(from);
       alert("You should do sign in or sign up first");

@@ -8,7 +8,7 @@
       </p>
       <base-button
         :mode="'main'"
-        style="margin: auto; width: max-content"
+        style="margin: auto; max-width: max-content"
         to="/sign"
         >Start Managing Today</base-button
       >

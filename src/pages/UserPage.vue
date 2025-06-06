@@ -40,12 +40,7 @@
             </div>
             <router-link :to="{ name: 'UserMoves' }">Moves</router-link>
           </div>
-          <div class="user_option">
-            <div class="option_img">
-              <img src="../icons/bar-chart_809171.png" alt="" srcset="" />
-            </div>
-            <router-link :to="{ name: 'UserStats' }">Statisticks</router-link>
-          </div>
+
           <div class="user_option">
             <div class="option_img">
               <img src="../icons/add_5251381.png" alt="" srcset="" />
