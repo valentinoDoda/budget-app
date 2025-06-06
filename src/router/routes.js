@@ -44,7 +44,12 @@ const routes = [
       },
     ],
   },
-  { path: "/user/add", name: "UserAdd", component: UserAdd },
+  {
+    path: "/user/add",
+    name: "UserAdd",
+    component: UserAdd,
+    meta: { loginRequire: true },
+  },
   {
     path: "/user/moves/:detail",
     name: "MoveDetail",

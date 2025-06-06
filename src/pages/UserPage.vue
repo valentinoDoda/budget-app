@@ -13,7 +13,7 @@
               srcset=""
             />
           </div>
-          <router-link :to="{name : 'UserEdit'}">EDIT</router-link>
+          <router-link :to="{ name: 'UserEdit' }">EDIT</router-link>
         </div>
         <div class="user_info">
           <h4>{{ userName }}</h4>
@@ -82,8 +82,8 @@ export default {
       this.$store.commit("clearMovements");
       this.$store.commit("clearUserData");
       this.$store.commit("resetFetching");
-
       this.$router.replace("/");
+      localStorage.clear();
     },
   },
   computed: {

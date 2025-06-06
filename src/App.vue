@@ -12,6 +12,21 @@ export default {
     FooterSection,
     BaseNav,
   },
+  created() {
+    const token = localStorage.getItem("token");
+    const localId = localStorage.getItem("localId");
+    console.log("this is token:", token, "this is local id", localId);
+    if (token && localId) {
+      this.$store.commit("setUser", {
+        token: token,
+        userId: localId,
+        tokenExpiration: null,
+      });
+      this.$store.dispatch("fetchUserData");
+
+      this.$router.replace({ name: "User" });
+    }
+  },
 };
 </script>
 
@@ -53,5 +68,4 @@ h2,
 h3 {
   font-family: var(--headings-fonts);
 }
-
 </style>

@@ -53,6 +53,7 @@ export default {
       this.$store.commit("resetFetching");
 
       this.$router.replace("/");
+      localStorage.clear();
     },
   },
   computed: {

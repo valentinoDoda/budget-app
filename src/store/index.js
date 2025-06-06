@@ -42,10 +42,12 @@ const store = createStore({
         }
 
         console.log(responseData);
+        localStorage.setItem("token", responseData.idToken);
+        localStorage.setItem("localId", responseData.localId);
         context.commit("setUser", {
-          token: responseData.idToken,
-          userId: responseData.localId,
-          tokenExpiration: responseData.expiresIn,
+          token: localStorage.getItem("token"),
+          userId: localStorage.getItem("localId"),
+          tokenExpiration: null,
         });
       } catch (err) {
         console.log(err);
@@ -73,10 +75,12 @@ const store = createStore({
           throw error;
         }
         console.log(responseData);
+        localStorage.setItem("token", responseData.idToken);
+        localStorage.setItem("localId", responseData.localId);
         context.commit("setUser", {
-          token: responseData.idToken,
-          userId: responseData.localId,
-          tokenExpiration: responseData.expiresIn,
+          token: localStorage.getItem("token"),
+          userId: localStorage.getItem("localId"),
+          tokenExpiration: null,
         });
       } catch (err) {
         console.log(err);
