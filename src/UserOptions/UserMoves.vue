@@ -80,6 +80,7 @@ select {
   background: none;
   border: none;
 }
+
 .search {
   height: 20px;
   width: 20px;
@@ -91,7 +92,12 @@ select {
   filter: brightness(0) saturate(100%) invert(95%) sepia(22%) saturate(233%)
     hue-rotate(24deg) brightness(92%) contrast(83%);
 }
-
-
-
+@media (min-width: 850px) {
+  ul {
+  scrollbar-width: thin;
+  height: 507px;
+  scrollbar-color: #292121 #333c2b;
+  overflow-y: auto;
+}
+}
 </style>

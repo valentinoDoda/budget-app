@@ -73,19 +73,19 @@
 </template>
 
 <script>
-if (window.innerWidth > 520) {
-  console.log("ok");
-}
-
-window.addEventListener("resize", () => {
-  if (window.innerWidth > 850) {
-    document.querySelector(".user_nav").style.display = "block";
-  } else {
-    document.querySelector(".user_nav").style.display = "none";
-  }
-});
-
 export default {
+  created() {
+    console.log("run");
+    if (window.innerWidth > 520) {
+      console.log("ok");
+    }
+
+    window.addEventListener("resize", () => {
+      if (window.innerWidth > 850) {
+       location.reload();
+      }
+    });
+  },
   data() {
     return {
       click: false,
