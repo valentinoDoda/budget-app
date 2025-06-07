@@ -79,7 +79,6 @@ export default {
   font-size: 16px !important;
 }
 nav {
-  width: 100%;
   justify-content: space-between;
   display: flex;
   align-items: center;
@@ -100,5 +99,13 @@ nav li a {
 nav h1 a {
   color: var(--titles-color);
   font-size: 40px;
+}
+@media (max-width: 520px){
+  li:nth-child(2){
+   display: none;
+  }
+  nav h1 a{
+    font-size: 32px;
+  }
 }
 </style>

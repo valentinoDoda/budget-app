@@ -34,4 +34,10 @@ ul li {
   align-items: end;
   justify-content: space-between;
 }
+
+@media (max-width: 520px){
+    a, p{
+      font-size: 12px;
+    }
+}
 </style>

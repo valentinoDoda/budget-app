@@ -123,4 +123,14 @@ export default {
   border-radius: 6px;
   padding: 20px 10px;
 }
+
+@media (max-width: 520px){
+  .user_budget{
+    grid-column: 1/3;
+  }
+  .user_home_card{
+    grid-template-columns: 1fr 1fr
+  }
+}
+
 </style>

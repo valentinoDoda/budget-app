@@ -41,5 +41,13 @@ a {
   padding: 10px 20px;
   font-size: 21px;
 }
+
+@media (max-width: 520px) {
+  .main,
+  .second,
+  .third {
+    font-size: 12px !important;
+  }
+}
 </style>
 >

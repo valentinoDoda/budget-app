@@ -68,4 +68,28 @@ h2,
 h3 {
   font-family: var(--headings-fonts);
 }
+p {
+    white-space: normal;
+    word-wrap: break-word;
+}
+@media (max-width: 520px) {
+  h1 {
+    font-size: 32px !important;
+  }
+  h3 {
+    font-size: 28px !important;
+  }
+  p {
+    font-size: 14px !important;
+  }
+  a {
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 520px) {
+  form {
+    padding: 0 !important;
+  }
+}
 </style>

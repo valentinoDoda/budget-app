@@ -7,9 +7,17 @@
       <div class="move_title">
         <p>{{ movementItem.title }}</p>
       </div>
-      <div class="move_value">{{ valueFormat }}</div>
-      <div class="move_date">{{ dateFormat }}</div>
-      <button @click="viewDetails">view more</button>
+      <div class="move_value">
+        <p>{{ valueFormat }}</p>
+      </div>
+      <div class="move_date">
+        <p>{{ dateFormat }}</p>
+      </div>
+      <div class="move_view">
+        <button @click="viewDetails" :class="movementItem.type+'View'">
+          <p>view more</p>
+        </button>
+      </div>
     </div>
   </li>
 </template>
@@ -65,6 +73,7 @@ export default {
 li {
   margin-top: 23px;
 }
+
 button {
   cursor: pointer;
   background: none;
@@ -87,7 +96,12 @@ button {
   background-color: #1a1f14;
   padding: 10px;
 }
-
+.incomeView {
+  background-color: none;
+}
+.expenseView {
+  background-color: none;
+}
 .income {
   background-color: #5a6d43;
 }
@@ -99,5 +113,31 @@ button {
   border-radius: 50px;
   height: 10px;
   width: 10px;
+}
+
+@media (max-width: 520px) {
+  .move_element {
+    text-align: center;
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .move_view .incomeView {
+    background-color: #5a6d43;
+  }
+  .move_view .expenseView {
+    background-color: #682929;
+  }
+  .move_view {
+    border-radius: 4px;
+    grid-column: 1/5;
+  }
+  .move_view button {
+    border-radius: 4px;
+    color: white;
+    padding: 10px;
+    width: 100%;
+  }
+  .move_type {
+    display: none;
+  }
 }
 </style>

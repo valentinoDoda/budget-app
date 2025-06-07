@@ -7,6 +7,7 @@
         with a clean and smart interface designed for everyday use.
       </p>
       <base-button
+        class="btn"
         :mode="'main'"
         style="margin: auto; max-width: max-content"
         to="/sign"
@@ -33,5 +34,16 @@
   font-size: 24px;
   color: var(--description-color);
   margin-bottom: 90px;
+}
+
+@media (max-width: 520px) {
+  
+  .hero-section p {
+    margin-bottom: 30px;
+   
+  }
+  .hero-section {
+    margin-top: 30px;
+  }
 }
 </style>

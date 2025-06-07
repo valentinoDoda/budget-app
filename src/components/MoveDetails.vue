@@ -1,23 +1,23 @@
 <template>
   <base-section>
     <div class="card">
-      <div class="date">date : {{ itemData.date }}</div>
-      <div :class="'type ' + itemData.type">{{ itemData.type }}</div>
-      <div class="amount">{{ itemData.value }}</div>
+      <div class="date"><p>date : {{ itemData.date }}</p></div>
+      <div :class="'type ' + itemData.type"> <h3>{{ itemData.type }}</h3></div>
+      <div class="amount"><h3>{{ itemData.value }}</h3></div>
 
       <div class="field">
-        <div class="field-title">Title:</div>
-        <div class="field-value">{{ itemData.title }}</div>
+        <div class="field-title"><p>Title:</p></div>
+        <div class="field-value"><p>{{ itemData.title }}</p></div>
       </div>
 
       <div class="field">
-        <div class="field-title">Description:</div>
-        <div class="field-value">{{ itemData.description }}</div>
+        <div class="field-title"><p>Description:</p></div>
+        <div class="field-value"><p>{{ itemData.description }}</p></div>
       </div>
 
       <div class="field">
-        <div class="field-title">Niche:</div>
-        <div class="field-value">{{ itemData.niche }}</div>
+        <div class="field-title"><p>Niche:</p></div>
+        <div class="field-value"><p>{{ itemData.niche }}</p></div>
       </div>
       <button @click="goBack" class="go-back">GO BACK</button>
     </div>
